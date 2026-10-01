@@ -1,0 +1,16 @@
+# Arquivos do Play Framework
+/tmp/
+/modules/
+/logs/
+/test-result/
+/precompiled/
+/data/
+
+# Arquivos do Eclipse
+.classpath
+.project
+.settings/
+eclipse/
+
+# Arquivos compilados
+*.class

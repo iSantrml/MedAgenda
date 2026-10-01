@@ -1,0 +1,71 @@
+#{extends 'main.html' /}
+#{set title:'Bem-vindo(a)' /}
+
+<style>
+  :root {
+    --bs-primary: #0e72bc;
+    --bs-primary-rgb: 14, 114, 188;
+  }
+  .btn-primary {
+    --bs-btn-hover-bg: #0c5f9c;
+    --bs-btn-hover-border-color: #0c5f9c;
+    --bs-btn-active-bg: #0a5285;
+    --bs-btn-active-border-color: #0a5285;
+  }
+</style>
+
+<div class="bg-primary bg-gradient text-white text-center py-5 mb-5">
+  <h1 class="fw-bold"> Bem-vindo(a) à Clínica</h1>
+  <p class="lead mb-0">Gerencie consultas e pacientes de forma simples</p>
+</div>
+
+<div class="container mb-5">
+
+  <div class="row g-3 mb-5">
+    <div class="col-md-4">
+      <a href="@{Consultas.form}" class="text-decoration-none">
+        <div class="card text-center h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-calendar-plus text-primary fs-1"></i>
+            <h5 class="card-title mt-3">Marcar Nova Consulta</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="@{Consultas.listar}" class="text-decoration-none">
+        <div class="card text-center h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-clipboard2-check text-primary fs-1"></i>
+            <h5 class="card-title mt-3">Ver Consultas Cadastradas</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="@{Consultas.formCliente}" class="text-decoration-none">
+        <div class="card text-center h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-person-plus text-primary fs-1"></i>
+            <h5 class="card-title mt-3">Cadastrar Paciente</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white">
+      <h4 class="mb-0"> Agenda Médica:</h4>
+    </div>
+    <ul class="list-group list-group-flush">
+      #{list items: medicos, as: 'medico'}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="@{Consultas.agendaMedica(medico.id)}" class="text-decoration-none stretched-link">${medico.nome}</a>
+        <span class="badge bg-primary rounded-pill">${medico.especialidade}</span>
+      </li>
+      #{/list}
+    </ul>
+  </div>
+
+</div>
