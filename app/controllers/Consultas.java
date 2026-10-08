@@ -3,14 +3,13 @@ package controllers;
 import java.util.List;
 
 import models.Cliente;
-import models.Medico;
 import models.Consulta;
+import models.Medico;
 import models.Status;
 import play.mvc.Controller;
 
 public class Consultas extends Controller {
 
-  
     public static void cadastro() { 
     List<Medico> medicos = Medico.findAll(); 
         render(medicos);

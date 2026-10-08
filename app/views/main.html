@@ -13,6 +13,18 @@
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
     </head>
     <body>
+
+        #{if session.get('usuarioNome')}
+            <p>Usuário logado: ${session.get('usuarioNome')} | <a href="@{Logins.sair()}">Sair</a></p>
+        #{/if}
+
+        #{if flash.error}
+            <p><b>${flash.error}</b></p>
+        #{/if}
+        #{if flash.success}
+            <p><b>${flash.success}</b></p>
+        #{/if}
+
         #{doLayout /}
         
         <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>

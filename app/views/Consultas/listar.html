@@ -24,6 +24,7 @@
 
 <div class="container mb-5">
 
+  #{if session['perfilUsuario'] == 'ADMIN' || session['perfilUsuario'] == 'ATENDENTE'}
   <div class="mb-4">
     <a href="@{Consultas.cadastro}" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Voltar ao Menu</a>
     <span class="mx-2">|</span>
@@ -33,8 +34,24 @@
   <form action="@{Consultas.listar}" class="input-group mb-4" style="max-width: 420px;">
     <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
     <input type="text" class="form-control" name="busca" value="${busca}" placeholder="Buscar pelo nome do paciente...">
+    #{if mostrarTodas}
+    <input type="hidden" name="mostrarTodas" value="true"/>
+    #{/if}
     <button type="submit" class="btn btn-primary">Buscar</button>
   </form>
+  #{/if}
+
+  #{if session['perfilUsuario'] != 'CLIENTE'}
+  <form action="@{Consultas.listar}" method="get">
+    <input type="hidden" name="busca" value="${busca}"/>
+    <p>
+      <label>
+        <input type="checkbox" name="mostrarTodas" value="true" ${mostrarTodas ? 'checked' : ''} onchange="this.form.submit()"/>
+        Mostrar consultas canceladas e realizadas
+      </label>
+    </p>
+  </form>
+  #{/if}
 
   #{list items:consultas, as:'c'}
     <div class="card border-0 shadow-sm mb-3">
@@ -44,14 +61,16 @@
           <span class="badge bg-primary rounded-pill">${c.status}</span>
         </div>
         <p class="mb-1"><i class="bi bi-person-badge text-primary"></i> ${c.medico?.nome} - ${c.medico?.especialidade}</p>
-        <p class="mb-1"><i class="bi bi-calendar-event text-primary"></i> ${c.data} às ${c.hora}</p>
+        <p class="mb-1"><i class="bi bi-calendar-event text-primary"></i> ${c.data.format('dd/MM/yyyy')} às ${c.hora}</p>
         <p class="mb-3"><i class="bi bi-chat-left-text text-primary"></i> ${c.obs}</p>
 
+        #{if (session['perfilUsuario'] == 'ADMIN' || session['perfilUsuario'] == 'ATENDENTE') && c.status.name() == 'AGENDADA'}
         <div>
           <a href="@{Consultas.remover(c.id)}" class="btn btn-sm btn-outline-danger">Cancelar</a>
           <a href="@{Consultas.editar(c.id)}" class="btn btn-sm btn-outline-secondary">Editar</a>
           <a href="@{Consultas.realizar(c.id)}" class="btn btn-sm btn-outline-success">Marcar como Realizado</a>
         </div>
+        #{/if}
       </div>
     </div>
   #{/list}

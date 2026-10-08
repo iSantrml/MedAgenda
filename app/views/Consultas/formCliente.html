@@ -30,6 +30,10 @@
         <a href="@{Consultas.cadastro}" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Voltar ao Menu</a>
       </div>
 
+      #{ifErrors}
+      <h4>Revise as informações do formulário</h4>
+      #{/ifErrors}
+
       <div class="card border-0 shadow-sm">
         <div class="card-body p-4">
 
@@ -49,6 +53,12 @@
               <label class="form-label"><i class="bi bi-telephone text-primary"></i> Telefone</label>
               <input type="text" class="form-control" name="c.telefone" value="${c?.telefone}" placeholder="Ex: (84) 90000-0000" required/>
             </div>
+
+            <p>
+              <label>Senha:</label><br/>
+              <input type="password" name="c.senha" required/><br/>
+              <span>#{error 'c.senha' /}</span>
+            </p>
 
             <div class="d-grid">
               <button type="submit" class="btn btn-primary btn-lg">Salvar Paciente</button>
