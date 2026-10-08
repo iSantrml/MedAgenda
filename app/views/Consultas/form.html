@@ -41,6 +41,10 @@
       <div class="alert alert-danger">${erro}</div>
       #{/if}
 
+      #{ifErrors}
+      <h4>Revise as informações do formulário</h4>
+      #{/ifErrors}
+
       <div class="card border-0 shadow-sm">
         <div class="card-body p-4">
 
@@ -51,11 +55,13 @@
             <div class="row g-3 mb-3">
               <div class="col-md-6">
                 <label class="form-label"><i class="bi bi-calendar-event text-primary"></i> Data da Consulta</label>
-                <input type="date" class="form-control" name="c.data" value="${c?.data}" placeholder="Ex: 20/07/2026" required/>
+                <input type="date" class="form-control" name="c.data" value="${c?.data?.format('yyyy-MM-dd')}" placeholder="Ex: 20/07/2026" required/>
+                <span>#{error 'c.data' /}</span>
               </div>
               <div class="col-md-6">
                 <label class="form-label"><i class="bi bi-clock text-primary"></i> Hora da Consulta</label>
                 <input type="text" class="form-control" name="c.hora" value="${c?.hora}" placeholder="Ex: 14:30" required/>
+                <span>#{error 'c.hora' /}</span>
               </div>
             </div>
 
@@ -69,6 +75,7 @@
                 </option>
                 #{/list}
               </select>
+              <span>#{error 'c.cliente' /}</span>
             </div>
 
             <div class="mb-3">
@@ -81,6 +88,7 @@
                 </option>
                 #{/list}
               </select>
+              <span>#{error 'c.medico' /}</span>
             </div>
 
             <div class="mb-4">
