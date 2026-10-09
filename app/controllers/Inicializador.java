@@ -7,6 +7,7 @@ import models.Perfil;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
+
 @OnApplicationStart
 public class Inicializador extends Job {
 
@@ -30,31 +31,32 @@ public class Inicializador extends Job {
             m1.especialidade = "Nutricionista";
             m1.crm = "1111-RN";
             m1.save();
+
+            Medico m2 = new Medico();
+            m2.nome = "Dr. Rafael Ferreira";
+            m2.senha = "123";
+            m2.perfil = Perfil.MEDICO;
+            m2.especialidade = "Cardiologista";
+            m2.crm = "1112-RN";
+            m2.save();
+
+            Medico m3 = new Medico();
+            m3.nome = "Dr. Maria Eduarda";
+            m3.senha = "123";
+            m3.perfil = Perfil.MEDICO;
+            m3.especialidade = "Oftamologista";
+            m3.crm = "1113-RN";
+            m3.save();
+
+            Medico m4 = new Medico();
+            m4.nome = "Dr. Pedro Otavio";
+            m4.senha = "123";
+            m4.perfil = Perfil.MEDICO;
+            m4.especialidade = "Pediatra";
+            m4.crm = "1114-RN";
+            m4.save();
         }
-        if (Medico.count() == 0) {
-		Medico m2 = new Medico();
-		m2.nome = "Dr. Rafael Ferreira";
-		m2.especialidade = "Cardiologista";
-		m2.crm = "1112-RN";
-		m2.save();
-        } 
-        
-        if (Medico.count() == 0) {
-		Medico m3 = new Medico();
-		m3.nome = "Dr. Maria Eduarda";
-		m3.especialidade = "Oftamologista";
-		m3.crm = "1113-RN";
-		m3.save();
-        } 
-        
-        if (Medico.count() == 0) {
-		Medico m4 = new Medico();
-		m4.nome = "Dr. Pedro Otavio";
-		m4.especialidade = "Pediatra";
-		m4.crm = "1114-RN";
-		m4.save();
-        } 
-        
+
         if (Cliente.count() == 0) {
             Cliente c1 = new Cliente();
             c1.nome = "João da Silva";
@@ -66,4 +68,3 @@ public class Inicializador extends Job {
         }
     }
 }
-

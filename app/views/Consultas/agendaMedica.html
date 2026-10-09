@@ -5,35 +5,67 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
-  :root {
-    --bs-primary: #0e72bc;
-    --bs-primary-rgb: 14, 114, 188;
-  }
+  :root { --bs-primary: #0e72bc; --bs-primary-rgb: 14, 114, 188; }
+  body { background: #f2f6fa; }
   .btn-primary {
-    --bs-btn-hover-bg: #0c5f9c;
-    --bs-btn-hover-border-color: #0c5f9c;
-    --bs-btn-active-bg: #0a5285;
-    --bs-btn-active-border-color: #0a5285;
+    --bs-btn-hover-bg: #0c5f9c; --bs-btn-hover-border-color: #0c5f9c;
+    --bs-btn-active-bg: #0a5285; --bs-btn-active-border-color: #0a5285;
   }
+  .hero { padding: 3rem 1rem 6rem; text-align: center; color: #fff;
+          background: linear-gradient(135deg, #0a5285, #0e72bc 60%, #3b9be0); }
+  .pull-up { margin-top: -3.5rem; }
+  .card-soft { border: 0; border-radius: 1rem; box-shadow: 0 8px 30px rgba(14, 114, 188, .1); }
+  .lift { transition: .2s; }
+  .lift:hover { transform: translateY(-5px); box-shadow: 0 14px 34px rgba(14, 114, 188, .2); }
+  .icon-circle { width: 64px; height: 64px; border-radius: 50%; background: #e8f2fa; color: #0e72bc;
+                 display: inline-flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+  .input-group-text { background: #e8f2fa; color: #0e72bc; }
+  .form-control:focus, .form-select:focus { border-color: #0e72bc; box-shadow: 0 0 0 .2rem rgba(14, 114, 188, .2); }
 </style>
 
-<div class="bg-primary bg-gradient text-white text-center py-5 mb-5">
+#{if session['perfilUsuario']}
+<nav class="navbar bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-primary" href="@{Consultas.cadastro}"><i class="bi bi-heart-pulse"></i> Clínica</a>
+
+    <div class="dropdown">
+      <button class="btn btn-outline-primary rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <i class="bi bi-person-circle"></i> ${session['nomeUsuario']}
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+        <li class="px-3 py-2">
+          <div class="fw-semibold">${session['nomeUsuario']}</div>
+          <span class="badge bg-primary rounded-pill">${session['perfilUsuario']}</span>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="@{Consultas.cadastro}"><i class="bi bi-house text-primary"></i> Menu</a></li>
+        <li><a class="dropdown-item" href="@{Consultas.listar}"><i class="bi bi-clipboard2-check text-primary"></i> Consultas</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger" href="/logins/sair"><i class="bi bi-box-arrow-right"></i> Sair</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+#{/if}
+
+<div class="hero">
+  <i class="bi bi-person-badge fs-1"></i>
   <h1 class="fw-bold">${medico.nome}</h1>
   <p class="lead mb-0">Especialidade: ${medico.especialidade}</p>
 </div>
 
-<div class="container mb-5">
+<div class="container pull-up mb-5">
 
-  <div class="mb-4">
-    <a href="@{Consultas.cadastro}" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Voltar ao Menu</a>
+  <div class="mb-3">
+    <a href="@{Consultas.cadastro}" class="text-white text-decoration-none"><i class="bi bi-arrow-left"></i> Voltar ao Menu</a>
   </div>
 
-  <div class="card border-0 shadow-sm">
+  <div class="card card-soft">
     <div class="card-body p-0">
-      <h4 class="px-4 pt-4">Consultas Marcadas</h4>
+      <h4 class="px-4 pt-4"><i class="bi bi-calendar2-week text-primary"></i> Consultas Marcadas</h4>
       <div class="list-group list-group-flush">
         #{list items:cdm, as:'c'}
-          <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+          <div class="list-group-item d-flex justify-content-between align-items-center px-4 py-3">
             <span><i class="bi bi-clock text-primary"></i> <strong>${c.data} às ${c.hora}</strong> - Paciente: ${c.cliente.nome}</span>
             <a href="@{Consultas.removerDaAgenda(medico.id, c.id)}" class="btn btn-sm btn-outline-danger">Remover</a>
           </div>
@@ -48,3 +80,5 @@
   </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
